@@ -1,0 +1,103 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(pwd:*)",
+      "Bash(wc:*)",
+      "Bash(which:*)",
+      "Bash(file:*)",
+      "Bash(find:*)",
+      "Bash(tree:*)",
+      "Bash(echo:*)",
+      "Bash(cd:*)",
+      "Bash(jq:*)",
+      "Bash(curl:*)",
+      "Bash(grep:*)",
+      "Bash(rg:*)",
+      "Bash(git status:*)",
+      "Bash(git log:*)",
+      "Bash(git diff:*)",
+      "Bash(git branch:*)",
+      "Bash(git show:*)",
+      "Bash(git blame:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git -C:*)",
+      "Bash(glab mr view:*)",
+      "Bash(glab mr list:*)",
+      "Bash(glab mr diff:*)",
+      "Bash(glab auth status:*)",
+      "Bash(glab ci status:*)",
+      "Bash(glab ci trace:*)",
+      "Bash(dotnet build:*)",
+      "Bash(dotnet test:*)",
+      "Bash(msbuild:*)",
+      "Bash(openspec --help)",
+      "Bash(openspec list:*)",
+      "Bash(openspec show:*)",
+      "Bash(openspec view:*)",
+      "Bash(openspec validate:*)",
+      "Bash(openspec status:*)",
+      "Bash(openspec instructions:*)",
+      "Bash(openspec templates:*)",
+      "Bash(openspec schemas:*)",
+      "Bash(openspec spec:*)",
+      "Bash(openspec change:*)",
+      "Bash(openspec archive:*)",
+      "Bash(glab --version)",
+      "Bash(glab auth:*)",
+      "Bash(glab api:*)",
+      "Skill(update-config)",
+      "mcp__plugin_atlassian_atlassian__searchJiraIssuesUsingJql",
+      "Read",
+      "WebFetch",
+      "WebSearch"
+    ],
+    "additionalDirectories": [
+      "/Users/finnjin/Repos/deliverables",
+      "/Users/finnjin/Repos/environment"
+    ]
+  },
+  "model": "claude-fable-5[1m]",
+  "enableAllProjectMcpServers": true,
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -c 'if (.tool_input.command | test(\"^\\s*msbuild\\b\")) then {hookSpecificOutput: {hookEventName: \"PreToolUse\", updatedInput: (.tool_input | .command = \"ulimit -n 256 && \" + .command)}} else {} end'",
+            "if": "Bash(msbuild *)",
+            "statusMessage": "Mono msbuild hangs without ulimit -n 256 (Claude Code sets RLIMIT_NOFILE to LLONG_MAX)"
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline.sh"
+  },
+  "enabledPlugins": {
+    "atlassian@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true,
+    "codex@openai-codex": true,
+    "playwright@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "openai-codex": {
+      "source": {
+        "source": "github",
+        "repo": "openai/codex-plugin-cc"
+      }
+    }
+  },
+  "language": "中文",
+  "tui": "fullscreen",
+  "agentPushNotifEnabled": true,
+  "voiceEnabled": true
+}

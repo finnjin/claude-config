@@ -1,0 +1,14 @@
+# claude-config 只版控 harness 制度與設定。
+# 白名單式：預設忽略所有東西，逐項放行；客製化 command/skill/agent、
+# memory、runtime 產物一律不進來（另外版控或不版控）。
+*
+
+!.gitignore
+!CLAUDE.md
+!settings.json
+
+!doctrine/
+!doctrine/**
+doctrine/*.bak-*
+
+.DS_Store
