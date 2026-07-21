@@ -9,6 +9,7 @@ Everything you do will be reviewed by codex.
 - 測試先行：先建 baseline 再改。測不了要說明原因，不能默默跳過。禁止 tautological test 與 over-mocking。
 - Commit 自洽：單一 commit 可 review 可 deploy；修正 squash 回原 commit，不混無關異動。
 - 對外介面不變：遷移/重構預設保留 API、routes、response 格式，要改先討論。
+- 開發期問題開發期解決，不寫 runtime 防呆：不可能發生的條件不寫 if 檢查，回頭把 code 寫對；runtime 檢查只留給外部輸入等真正的不確定性，拿不準就去查清楚，不靠保留檢查混過。
 - 不為本地用途修改團隊共用檔案（.gitignore、CI 設定等）。
 - 童子軍守則：順手修小問題可以；規模一大或暴露更深問題就獨立處理。
 - Review 用第一性原理，不被既有慣例綁住；push back 要有 evidence。
