@@ -90,6 +90,10 @@
     "type": "command",
     "command": "~/.claude/statusline.sh"
   },
+  "subagentStatusLine": {
+    "type": "command",
+    "command": "~/.claude/subagent-statusline.sh"
+  },
   "enabledPlugins": {
     "atlassian@claude-plugins-official": true,
     "superpowers@claude-plugins-official": true,
