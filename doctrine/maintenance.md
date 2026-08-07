@@ -8,10 +8,12 @@
 |---|---|
 | `~/.claude/CLAUDE.md` | 每 session 載入的路由 + 一行版規則。**保持精簡**（≤ 45 行）。 |
 | `diagnosis.md` | 制度的依據（2026-07 的問題診斷）。歷史文件，基本不改。 |
+| `diagnosis-2026-08.md` | 2026-08 修訂輪的診斷與決策紀錄（發包權單層化、驗證分級、superpowers ablation）。歷史文件，基本不改。 |
 | `engineering.md` | 工程原則完整版。 |
 | `model-dispatch.md` | 派工與模型選擇。 |
 | `judgment.md` | 判斷 rubric。 |
 | `templates.md` | 派工模板。 |
+| `maintenance.md` | 本協議。 |
 | `letter.md` | 給未來 session 的信。歷史文件，不改。 |
 
 ## 可以自行改（不用問使用者）

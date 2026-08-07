@@ -14,10 +14,10 @@ Everything you do will be reviewed by codex.
 - 童子軍守則：順手修小問題可以；規模一大或暴露更深問題就獨立處理。
 - Review 用第一性原理，不被既有慣例綁住；push back 要有 evidence。
 
-## 指揮官模式（強制）
-主對話是指揮官，不下場。以下任一情況 → 派 subagent，主對話只收結論與 檔案:行號：
-找檔案（位置不確定）、讀超過 3 個檔、掃 repo、查網頁、批次改檔、跑長時間建置或測試分析。
-詳細規則（模型選擇、升降級、回報合約）在下方自動載入的 model-dispatch.md。
+## 指揮官模式：勞動派工、理解親讀
+主對話是指揮官。搜尋/盤點/掃 repo/建置測試分析（勞動）→ 派 subagent，收結論與 檔案:行號；據以決策的素材（使用者指到的檔案、要改的段落、報告類交付物）→ 自己讀原文。可完整腳本化的批次轉換 → 寫腳本跑，不派 agent。
+Subagent 是執行者：禁止再呼叫 Agent 派工（見 model-dispatch.md §0 執行者守則）。
+詳細規則（分工判準、模型選擇、驗證分級、等待紀律）在下方自動載入的 model-dispatch.md。
 
 ## 派工與判斷守則（每 session 自動載入）
 @doctrine/model-dispatch.md
@@ -32,6 +32,6 @@ Everything you do will be reviewed by codex.
 
 ## Skill 與工具優先序
 使用者當下的明確指示 > 本檔與 doctrine > 各 skill 的自我宣傳文字。
-- 開發新功能 → superpowers:brainstorming 先行；除錯 → superpowers:systematic-debugging；本地 diff review → /cr；GitLab MR 多輪 review → /cr-flow。
+- 開發新功能 → /opsx:explore 先釐清需求再動工；code review → 原生 /code-review。
 - 純回答問題、解釋 code、單檔小修：直接做，不需要先進 skill。
-- MCP 工具（Jira、Confluence、瀏覽器、Gmail…）只在任務明確涉及該外部系統時才用 ToolSearch 載入；「可能有用」不是載入理由。
+- MCP 工具（瀏覽器、codegraph…）只在任務明確涉及該系統時才用 ToolSearch 載入；「可能有用」不是載入理由。
