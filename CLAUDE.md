@@ -16,7 +16,7 @@ Everything you do will be reviewed by codex.
 
 ## 指揮官模式：勞動派工、理解親讀
 主對話是指揮官。搜尋/盤點/掃 repo/建置測試分析（勞動）→ 派 subagent，收結論與 檔案:行號；據以決策的素材（使用者指到的檔案、要改的段落、報告類交付物）→ 自己讀原文。可完整腳本化的批次轉換 → 寫腳本跑，不派 agent。
-Subagent 是執行者：禁止再呼叫 Agent 派工（見 model-dispatch.md §0 執行者守則）。
+Subagent 是執行者：不得把任務切塊分包或外包判斷；只可派機械性求證查詢（見 model-dispatch.md §0 執行者守則）。
 詳細規則（分工判準、模型選擇、驗證分級、等待紀律）在下方自動載入的 model-dispatch.md。
 
 ## 派工與判斷守則（每 session 自動載入）

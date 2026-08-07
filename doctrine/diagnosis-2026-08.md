@@ -16,6 +16,7 @@
 - **superpowers plugin 移除（船長 2026-08-08 決定）**：乾淨移除、不蒸餾、不補償——這是 ablation 實驗。理由：(a) brainstorming 船長已改用 /opsx:explore；(b) systematic-debugging 的價值是混淆變數，蒸餾等於把混淆永久化；(c) doctrine 只收船長確認過的判斷。若日後除錯/需求釐清品質可觀察退化，憑證據再決定是否引入對應流程。附帶：其 SessionStart hook 的強制注入（「1% 適用就 MUST」）同時消失；P1 已證實與該 plugin 無關，但注入稅仍省下。
 - **上一輪修訂方向 7 條全數採納**，無推翻。修正兩處事實：無第三層→實有 30 個 depth3；superpowers 誘發 P1 假說→數據推翻（見上）。
 - 「可腳本化卻派 n 個 agent」數據不支持為現行問題，§6 為預防性短條款。
+- **船長修正（2026-08-08，初版落地後）**：(1) §0 由一刀切禁令改為「統籌 vs 工具」判準——subagent 不得切塊分包、不得外包判斷（那是搶主對話的統籌職責），但可派機械性求證查詢（機械／求證／親核三條件）；(2) §8 增「驗不到的不硬驗」——verifier 前提是 agent 執行得了的檢核；migration script 語法有 CI 擋、資料實態 agent 驗不到，標「未驗＋依賴管道」而非開儀式性 verifier；(3) §1 增決策測試與「迭代迴圈一律下放」——主對話 context 的主要摩擦源是反覆試錯迴圈的累積，不是單次親讀。
 - **plugin 與 skill 路由（船長 2026-08-08 逐項確認）**：atlassian plugin 停用（船長已改用 acli，/jira 命令同步改寫）；codex plugin 保留（CC 外仍有 codex 工作流）；/cr 系列停用（船長：「沒時間優化，都用原生 /code-review」），CLAUDE.md 路由同步改。settings.json 中船長先前未 commit 的本地調整（defaultMode、connectors、skillOverrides、i-have-adhd plugin）依船長指示一併入版控，獨立 commit。
 
 ## 驗證方式（供未來重算）
