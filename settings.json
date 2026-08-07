@@ -51,7 +51,6 @@
       "Bash(glab auth:*)",
       "Bash(glab api:*)",
       "Skill(update-config)",
-      "mcp__plugin_atlassian_atlassian__searchJiraIssuesUsingJql",
       "Read",
       "WebFetch",
       "WebSearch",
@@ -64,6 +63,7 @@
       "mcp__codegraph__codegraph_files",
       "mcp__codegraph__codegraph_status"
     ],
+    "defaultMode": "auto",
     "additionalDirectories": [
       "/Users/finnjin/Repos/deliverables",
       "/Users/finnjin/Repos/environment"
@@ -71,6 +71,13 @@
   },
   "model": "claude-fable-5[1m]",
   "enableAllProjectMcpServers": true,
+  "disableClaudeAiConnectors": true,
+  "skillOverrides": {
+    "openspec-propose": "off",
+    "openspec-apply-change": "off",
+    "openspec-explore": "off",
+    "openspec-archive-change": "off"
+  },
   "hooks": {
     "PreToolUse": [
       {
@@ -95,16 +102,23 @@
     "command": "~/.claude/subagent-statusline.sh"
   },
   "enabledPlugins": {
-    "atlassian@claude-plugins-official": true,
-    "superpowers@claude-plugins-official": true,
+    "atlassian@claude-plugins-official": false,
+    "superpowers@claude-plugins-official": false,
     "codex@openai-codex": true,
-    "playwright@claude-plugins-official": true
+    "playwright@claude-plugins-official": true,
+    "i-have-adhd@i-have-adhd": true
   },
   "extraKnownMarketplaces": {
     "openai-codex": {
       "source": {
         "source": "github",
         "repo": "openai/codex-plugin-cc"
+      }
+    },
+    "i-have-adhd": {
+      "source": {
+        "source": "github",
+        "repo": "ayghri/i-have-adhd"
       }
     }
   },
