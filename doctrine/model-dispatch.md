@@ -148,12 +148,13 @@
 - 反例（不該開卻開）：一行 typo fix、測試全過，還派 fresh verifier 再讀一遍——純延遲。
 - 反例（該開卻沒開）：改了 API response 格式、沒有測試蓋到，「看起來對」就交——動對外介面＋無可重跑檢核，開 verifier。
 
-## 9. 機制快照（2026-08-08 實測；過期照 maintenance.md 更新）
+## 9. 機制快照（2026-08-08 實測，同日晚間第二次 session 複測仍成立；過期照 maintenance.md 更新）
 
+- **Schema 優先**：當下 session 的工具 schema 與本快照矛盾時，一律以 schema 為準行動，並照 maintenance.md 更新本節。不要照舊條文對抗工具（重試不存在的參數、堅持已改變的預設）。機制事實只寫在本節；其他章節只寫跨版本穩定的判準。
 - Agent 工具 `model` enum：`haiku`/`sonnet`/`opus`/`fable`（fable 不保證可用，呼叫失敗改 `opus`）；**沒有** effort 參數（effort 只能在 `~/.claude/agents/*.md` frontmatter 設）。
 - 派工**預設背景執行**，完成時 harness 自動喚醒主對話；`run_in_background: false` 改同步。
 - subagent context 載入完整 CLAUDE.md + doctrine（§0 的依據），工具清單含 Agent——技術上可巢狀派工，制度上禁止。
 - SendMessage 可延續既有 agent 對話；延續不算 fresh（§8）。
 - **doctrine 改動不會即時生效於 subagent**：subagent 注入的 CLAUDE.md/doctrine 是 session 啟動時的快照（2026-08-08 實測：改檔後同 session 派出的 agent 仍引用舊條文）。制度變更下個 session 才對 subagent 生效；當下就要 subagent 遵守新規則，把新條文直接貼進派工 prompt。
-- Workflow 工具僅主對話可能有（subagent 沒有）；只在使用者明確要求 multi-agent orchestration（如「ultracode」）時使用。
+- Workflow 工具僅主對話可能有（subagent 沒有）；只在使用者明確要求 multi-agent orchestration（如「ultracode」）時使用。其 script 內的 agent() 另有 model/effort 參數，與 Agent 工具的 schema 不同，用時照當下 schema。
 - `codex:codex-rescue` 不列入常規流程（2026-07-13 船長指示：不穩定）。只有使用者明確要求 codex 時用 `Agent(subagent_type: "codex:codex-rescue")` 呼叫（`model` 欄留空）。

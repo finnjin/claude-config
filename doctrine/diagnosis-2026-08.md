@@ -19,6 +19,18 @@
 - **船長修正（2026-08-08，初版落地後）**：(1) §0 由一刀切禁令改為「統籌 vs 工具」判準——subagent 不得切塊分包、不得外包判斷（那是搶主對話的統籌職責），但可派機械性求證查詢（機械／求證／親核三條件）；(2) §8 增「驗不到的不硬驗」——verifier 前提是 agent 執行得了的檢核；migration script 語法有 CI 擋、資料實態 agent 驗不到，標「未驗＋依賴管道」而非開儀式性 verifier；(3) §1 增決策測試與「迭代迴圈一律下放」——主對話 context 的主要摩擦源是反覆試錯迴圈的累積，不是單次親讀。
 - **plugin 與 skill 路由（船長 2026-08-08 逐項確認）**：atlassian plugin 停用（船長已改用 acli，/jira 命令同步改寫）；codex plugin 保留（CC 外仍有 codex 工作流）；/cr 系列停用（船長：「沒時間優化，都用原生 /code-review」），CLAUDE.md 路由同步改。settings.json 中船長先前未 commit 的本地調整（defaultMode、connectors、skillOverrides、i-have-adhd plugin）依船長指示一併入版控，獨立 commit。
 
+## 補記：同日第二次 Fable session（2026-08-08 晚，船長最後一次 Fable）
+
+今晨修訂距今無新使用數據，本節是**覆核**而非重測。
+
+**已重新實測成立的機制事實**：§9 快照全數仍成立（haiku 實測：subagent context 含完整 CLAUDE.md + doctrine、有 Agent 工具、無 Workflow；Agent schema 的 model enum 為 haiku/sonnet/opus/fable、無 effort 參數、預設背景執行）。檔案規模均在 maintenance.md 上限內（CLAUDE.md 37 行、model-dispatch.md 159 行）。settings 與今晨決策一致（superpowers/atlassian 已停用）。
+
+**現行前三名風險與修法**（結構性判斷；因無新數據，不冒充實測）：
+
+1. **今晨修法未經數據關帳**（最容易出錯）：P1–P4 的修法全是尚未被下游 session 驗證的紙上規則。修法：4–6 週後照下方「驗證方式」重算四個指標——depth≥2 派工數（目標≈0）、主對話 Bash/Edit/Read 次數（應下降）、低風險變更的 verifier 開設率（應下降）、直接派工 p90 時長（應 <20 分鐘）。憑數據決定保留或修正，不憑感覺。
+2. **停用未拆除的 skill/command 表面**（最容易失焦）：/cr 系列（`~/.claude/commands/cr.md`、`cr-flow.md`、`cr-update.md`；`~/.claude/skills/cr-core`、`mr-inline-comments`）已宣告停用，但每 session 仍出現在 skill 清單自我宣傳（「單一指令跑完…」措辭對弱模型是強誘餌），目前只靠 CLAUDE.md 一行路由對沖。且 commands/skills 不在 claude-config 版控內，直接刪除不可回復。修法（需船長決定）：先入版控（擴白名單或另立 repo），再實際移除；過渡期可在各檔 description 開頭加「[停用] 改用 /code-review」。
+3. **機制快照過期**（下一個 token/時間漏源）：harness 演化快（本日主對話工具面已見 Workflow、ScheduleWakeup、內建 memory 協議等新元素），doctrine 寫死的機制事實過期後，弱模型「忠實執行過時規則」比沒規則更糟——照舊條文重試不存在的參數、或用被淘汰的方式空轉。修法：已在 model-dispatch.md §9 增訂「schema 優先」條款——當下工具 schema 與快照矛盾時以 schema 為準並更新快照；機制事實只准集中寫在 §9，其他章節只寫跨版本穩定的判準。
+
 ## 驗證方式（供未來重算）
 
 主對話：`~/.claude/projects/<proj>/<session-uuid>.jsonl`；subagent：`<proj>/<session-uuid>/subagents/agent-*.jsonl`（**各層平放**，層級看 `agent-*.meta.json` 的 `spawnDepth`）。巢狀發包＝agent 檔內 `message.content[].type=="tool_use"` 且 name 為 Agent/Task。重算腳本樣本：scratchpad `restat/restat.py`（session 目錄會輪替，過期就重寫）。
