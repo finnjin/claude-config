@@ -59,4 +59,4 @@
 
 ## 備份清理
 
-舊制的 `*.bak-*` 檔已被 git 取代，看到可直接刪（git history 是唯一備份機制）。
+舊制的 `doctrine/*.bak-*` 檔已被 git 取代，看到可直接刪（git history 是唯一備份機制）。例外：`~/.claude/CLAUDE.md.pre-doctrine-bak` 是 doctrine 化之前的原版 CLAUDE.md、被 `letter.md` 引用且未入版控，**不可刪**。

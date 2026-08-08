@@ -23,7 +23,7 @@
 
 今晨修訂距今無新使用數據，本節是**覆核**而非重測。
 
-**已重新實測成立的機制事實**：§9 快照全數仍成立（haiku 實測：subagent context 含完整 CLAUDE.md + doctrine、有 Agent 工具、無 Workflow；Agent schema 的 model enum 為 haiku/sonnet/opus/fable、無 effort 參數、預設背景執行）。檔案規模均在 maintenance.md 上限內（CLAUDE.md 37 行、model-dispatch.md 159 行）。settings 與今晨決策一致（superpowers/atlassian 已停用）。
+**已重新實測成立的機制事實**：§9 快照全數仍成立（haiku 實測：subagent context 含完整 CLAUDE.md + doctrine、有 Agent 工具、無 Workflow；Agent schema 的 model enum 為 haiku/sonnet/opus/fable、無 effort 參數、預設背景執行）。檔案規模均在 maintenance.md 上限內（CLAUDE.md 37 行，上限 45；doctrine 各檔均低於 200 行上限）。settings 與今晨決策一致（superpowers/atlassian 已停用）。
 
 **現行前三名風險與修法**（結構性判斷；因無新數據，不冒充實測）：
 

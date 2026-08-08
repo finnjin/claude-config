@@ -7,7 +7,7 @@
 實測事實（2026-08-08）：subagent 的 context 也載入完整 CLAUDE.md 與 doctrine，且工具清單裡有 Agent 工具。所以讀到本檔的你，先分清身分：
 
 - **主對話（指揮官）**：直接面對使用者、任務來自使用者輸入 → 全檔適用。
-- **subagent（執行者）**：system prompt 說你是 agent、任務是一段派工 prompt → 遵守下面的「執行者守則」；§4 的回報合約、§6 的腳本判準、§8 對 verifier 的要求同樣適用於你。§1、§2、§3、§5、§7 是指揮官職權，對你不適用。
+- **subagent（執行者）**：system prompt 說你是 agent、任務是一段派工 prompt → 遵守下面的「執行者守則」；§4 的回報合約、§5 的等待紀律（你派的求證查詢也適用）、§6 的腳本判準、§8 對 verifier 的要求、§9 的 schema 優先（僅「照 schema 行動」；更新 doctrine 是主對話職權）同樣適用於你。§1、§2、§3、§7 是指揮官職權，對你不適用。
 
 ### 執行者守則（subagent 只需遵守這段）
 
@@ -103,7 +103,7 @@
 
 實測（2026-08-08）：背景 subagent 完成時 harness **自動喚醒**主對話，不需要也不應該輪詢。
 
-- 等待期間禁止任何形式的輪詢與等待迴圈：`sleep`、Monitor until-loop、TaskOutput/TaskStop 查進度、tail transcript 檔——不管用哪個工具，語意上的「空轉等待」都算。
+- 等待**背景 subagent** 期間禁止任何形式的輪詢與等待迴圈：`sleep`、Monitor until-loop、TaskOutput/TaskStop 查進度、tail transcript 檔——不管用哪個工具，語意上的「空轉等待 subagent」都算。本條只管等 subagent；等本地長命令（build、測試）照當下工具 schema 提供的機制處理（如背景執行＋自動喚醒），不受本條限制。
 - 等待時：有別的獨立工作就做；沒有就直接結束 turn，喚醒到了再繼續。
 - 正例：派出 3 個背景 agent 後暫無他事 → 回覆使用者「已派出，等結果」並結束 turn。
 - 反例：跑 `sleep 30` 再查狀態——2026-07-27 實錄，使用者中斷質問「你在幹嘛」。輪詢是假裝在忙。
@@ -150,7 +150,7 @@
 
 ## 9. 機制快照（2026-08-08 實測，同日晚間第二次 session 複測仍成立；過期照 maintenance.md 更新）
 
-- **Schema 優先**：當下 session 的工具 schema 與本快照矛盾時，一律以 schema 為準行動，並照 maintenance.md 更新本節。不要照舊條文對抗工具（重試不存在的參數、堅持已改變的預設）。機制事實只寫在本節；其他章節只寫跨版本穩定的判準。
+- **Schema 優先**：當下 session 的工具 schema 與本快照矛盾時，一律以 schema 為準行動，不要照舊條文對抗工具（重試不存在的參數、堅持已改變的預設）。「照 schema 行動」所有人適用；「照 maintenance.md 更新本節」只有主對話做——subagent 發現矛盾時寫進回報，不得自行改 doctrine 檔。**新增**機制事實一律寫進本節；其他章節出現的工具名與參數是判準的示例，與本節或當下 schema 矛盾時以後者為準，修正時改本節即可、不刪章節內容。工具面可能因位置而異（主對話與 subagent 的清單不同），以「自己當下看得到的 schema」為準。
 - Agent 工具 `model` enum：`haiku`/`sonnet`/`opus`/`fable`（fable 不保證可用，呼叫失敗改 `opus`）；**沒有** effort 參數（effort 只能在 `~/.claude/agents/*.md` frontmatter 設）。
 - 派工**預設背景執行**，完成時 harness 自動喚醒主對話；`run_in_background: false` 改同步。
 - subagent context 載入完整 CLAUDE.md + doctrine（§0 的依據），工具清單含 Agent——技術上可巢狀派工，制度上禁止。
