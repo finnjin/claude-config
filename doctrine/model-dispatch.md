@@ -148,12 +148,13 @@
 - 反例（不該開卻開）：一行 typo fix、測試全過，還派 fresh verifier 再讀一遍——純延遲。
 - 反例（該開卻沒開）：改了 API response 格式、沒有測試蓋到，「看起來對」就交——動對外介面＋無可重跑檢核，開 verifier。
 
-## 9. 機制快照（2026-08-08 實測，同日晚間第二次 session 複測仍成立；過期照 maintenance.md 更新）
+## 9. 機制快照（2026-08-08 實測；過期照 maintenance.md 更新）
 
 - **Schema 優先**：當下 session 的工具 schema 與本快照矛盾時，一律以 schema 為準行動，不要照舊條文對抗工具（重試不存在的參數、堅持已改變的預設）。「照 schema 行動」所有人適用；「照 maintenance.md 更新本節」只有主對話做——subagent 發現矛盾時寫進回報，不得自行改 doctrine 檔。**新增**機制事實一律寫進本節；其他章節出現的工具名與參數是判準的示例，與本節或當下 schema 矛盾時以後者為準，修正時改本節即可、不刪章節內容。工具面可能因位置而異（主對話與 subagent 的清單不同），以「自己當下看得到的 schema」為準。
 - Agent 工具 `model` enum：`haiku`/`sonnet`/`opus`/`fable`（fable 不保證可用，呼叫失敗改 `opus`）；**沒有** effort 參數（effort 只能在 `~/.claude/agents/*.md` frontmatter 設）。
 - 派工**預設背景執行**，完成時 harness 自動喚醒主對話；`run_in_background: false` 改同步。
 - subagent context 載入完整 CLAUDE.md + doctrine（§0 的依據），工具清單含 Agent——技術上可巢狀派工，制度上禁止。
+- **subagent 不繼承主對話歷史**（2026-08-08 實測）：它只拿到固定注入＋派工 prompt 本文，context 傳遞是 opt-in——沒寫進 prompt 的資訊對 agent 不存在（動機、起點、使用者的口頭指示都要明寫）。schema 文件提及的 `fork` 型 agent 在實測當日的 registry 不存在。
 - SendMessage 可延續既有 agent 對話；延續不算 fresh（§8）。
 - **doctrine 改動不會即時生效於 subagent**：subagent 注入的 CLAUDE.md/doctrine 是 session 啟動時的快照（2026-08-08 實測：改檔後同 session 派出的 agent 仍引用舊條文）。制度變更下個 session 才對 subagent 生效；當下就要 subagent 遵守新規則，把新條文直接貼進派工 prompt。
 - Workflow 工具僅主對話可能有（subagent 沒有）；只在使用者明確要求 multi-agent orchestration（如「ultracode」）時使用。其 script 內的 agent() 另有 model/effort 參數，與 Agent 工具的 schema 不同，用時照當下 schema。
