@@ -154,7 +154,6 @@
 - Agent 工具 `model` enum：`haiku`/`sonnet`/`opus`/`fable`（fable 不保證可用，呼叫失敗改 `opus`）；**沒有** effort 參數（effort 只能在 `~/.claude/agents/*.md` frontmatter 設）。
 - 派工**預設背景執行**，完成時 harness 自動喚醒主對話；`run_in_background: false` 改同步。
 - subagent context 載入完整 CLAUDE.md + doctrine（§0 的依據），工具清單含 Agent——技術上可巢狀派工，制度上禁止。
-- **subagent 不繼承主對話歷史**（2026-08-08 實測）：它只拿到固定注入＋派工 prompt 本文，context 傳遞是 opt-in——沒寫進 prompt 的資訊對 agent 不存在（動機、起點、使用者的口頭指示都要明寫）。schema 文件提及的 `fork` 型 agent 在實測當日的 registry 不存在。
 - SendMessage 可延續既有 agent 對話；延續不算 fresh（§8）。
 - **doctrine 改動不會即時生效於 subagent**：subagent 注入的 CLAUDE.md/doctrine 是 session 啟動時的快照（2026-08-08 實測：改檔後同 session 派出的 agent 仍引用舊條文）。制度變更下個 session 才對 subagent 生效；當下就要 subagent 遵守新規則，把新條文直接貼進派工 prompt。
 - Workflow 工具僅主對話可能有（subagent 沒有）；只在使用者明確要求 multi-agent orchestration（如「ultracode」）時使用。其 script 內的 agent() 另有 model/effort 參數，與 Agent 工具的 schema 不同，用時照當下 schema。
