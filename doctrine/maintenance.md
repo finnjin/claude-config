@@ -15,7 +15,7 @@
 | `templates.md` | 派工模板。 |
 | `maintenance.md` | 本協議。 |
 | `letter.md` | 給未來 session 的信（2026-07）。歷史文件，不改。 |
-| `letter-2026-08.md` | 第二封信（2026-08，Fable 最後一次 session）。歷史文件，不改。 |
+| `letter-2026-08.md` | 給未來 session 的信（2026-08）。歷史文件，不改。 |
 
 ## 可以自行改（不用問使用者；本節權限僅主對話適用，subagent 一律不改 doctrine，發現問題寫進回報）
 
