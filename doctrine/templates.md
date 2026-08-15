@@ -6,7 +6,7 @@
 
 ---
 
-## 1. 搜尋／定位（model: haiku；需要理解判斷時用 sonnet）
+## 1. 搜尋／定位（subagent_type: `Explore`；純字串/檔名搜尋 haiku，預設 sonnet，需要判斷用 opus。Explore 沒有 Edit/Write/Agent 工具，分包禁令對它是結構保證）
 
 ```
 在 {repo 或目錄} 找 {目標：符號/字串/設定/所有 call site}。
@@ -27,7 +27,7 @@
 - 時間預算 {量級}：超過 ~{N} 次工具呼叫仍未收斂，停下回報部分結果與卡點。
 ```
 
-## 2. 實作（model: sonnet；跨模組或設計含糊時用 opus）
+## 2. 實作（model: sonnet；跨模組或設計含糊時用 opus。理解住在對話裡 → `subagent_type: fork`，此時 model 由父對話決定、本模板的「既有慣例」段可省；否則 fresh general-purpose）
 
 ```
 目標：{要實作什麼，一句話}。
@@ -129,6 +129,6 @@
 ## 使用備註
 
 - 升級重派時，在模板最上方加一段「失敗軌跡」：原始目標、每次嘗試的做法、實際輸出/錯誤原文、猜測的卡點。
-- 獨立子任務並行派：同一個訊息裡發多個 Agent 呼叫（平面化直接派 N 個，不派 coordinator——見 model-dispatch.md §2）。
+- 獨立子任務並行派：同一個訊息裡發多個 Agent 呼叫（平面化直接派 N 個，不派 coordinator——見 model-dispatch.md §2）。使用者一次給多件事：先 TaskCreate 全部，再同訊息派出，TaskList 清完才結束 turn（§1）。
 - 審查 agent 與實作 agent 不能是同一個對話延續（SendMessage 給原 agent 不算 fresh）。
 - 預期 1-2 分鐘內完成、下一步立刻要用結果 → `run_in_background: false` 同步執行；其餘背景並行，等待期間不 sleep 不輪詢（model-dispatch.md §5）。
