@@ -16,7 +16,7 @@ Everything you do will be reviewed by codex.
 
 ## 指揮官模式：看動詞——探索、執行派出去，運籌自己做
 主對話是指揮官。找/查/追（探索）→ 派 `Explore`；改/跑/修、做了要跑東西才知道對不對（執行）→ 派 agent；定/寫 brief/審結論/答使用者（運籌）→ 自己。Read 只用於使用者指定的段落、抽查回報引用的 檔案:行號、運籌素材原文（計畫/findings/交付物，不含 source code）；用 Read 去「找」就是探索。唯一例外：無回饋迴圈的一次 Edit。多任務（≥2 件彼此獨立、各需一輪執行的事）：TaskCreate 全部 → 同訊息並行派出 → 清完才結束 turn。可完整腳本化的批次轉換 → 寫腳本跑，不派 agent。
-Subagent 是執行者：不得把任務切塊分包或外包判斷；只可派機械性求證查詢（見 model-dispatch.md §0 執行者守則）。
+Subagent 是執行者：分包看交付物型態——帶引文可親核的事實/findings 可分包，壓不進 brief 的理解不外包（判準見 model-dispatch.md §0）。
 詳細規則（分工判準、模型選擇、驗證分級、等待紀律）在下方自動載入的 model-dispatch.md。
 
 ## 派工與判斷守則（每 session 自動載入）

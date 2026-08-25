@@ -8,7 +8,7 @@
 |---|---|
 | `~/.claude/CLAUDE.md` | 每 session 載入的路由 + 一行版規則。**保持精簡**（≤ 45 行）。 |
 | `diagnosis.md` | 制度的依據（2026-07 的問題診斷）。歷史文件，基本不改。 |
-| `diagnosis-2026-08.md` | 2026-08 修訂輪的診斷與決策紀錄（發包權單層化、驗證分級、superpowers ablation）。歷史文件，基本不改。 |
+| `diagnosis-2026-08.md` | 2026-08 修訂輪的診斷與決策紀錄（發包權單層化、驗證分級、superpowers ablation）。歷史文件，基本不改。其中發包權單層化與 depth≥2 類指標已被取代——現行判準是交付物型態（model-dispatch.md §0），letter/diagnosis 裡的舊指標勿再執行。 |
 | `diagnosis-2026-08-16.md` | 2026-08-16 §1 改寫的診斷與決策（看動詞判準、context 不當判準、fork 取捨、多任務三步）。歷史文件，基本不改。 |
 | `engineering.md` | 工程原則完整版。 |
 | `model-dispatch.md` | 派工與模型選擇。 |
