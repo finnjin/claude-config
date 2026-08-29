@@ -14,7 +14,7 @@
 
 ### 2. 把 ~/.claude 納入 git（需要船長決定）
 
-doctrine、skills（尤其 cr-core 規則庫）、settings.json 是這個環境最有價值的資產，但目前只有散落的 `.bak` 檔保護。建議 `git init` ~/.claude，用 `.gitignore` 排除 `history.jsonl`、`sessions/`、`session-env/`、`paste-cache/`、`file-history/`、`shell-snapshots/`、`telemetry/`、`usage-data/`、`stats-cache.json`、`projects/`（含對話痕跡）。制度檔改壞可回滾，`maintenance.md` 的備份協議就可以簡化成 git。這件事我沒做，因為初始化 repo 是改變系統狀態的決定，且哪些目錄含敏感資訊該由船長確認。
+doctrine、skills、settings.json 是這個環境最有價值的資產，但目前只有散落的 `.bak` 檔保護。建議 `git init` ~/.claude，用 `.gitignore` 排除 `history.jsonl`、`sessions/`、`session-env/`、`paste-cache/`、`file-history/`、`shell-snapshots/`、`telemetry/`、`usage-data/`、`stats-cache.json`、`projects/`（含對話痕跡）。制度檔改壞可回滾，`maintenance.md` 的備份協議就可以簡化成 git。這件事我沒做，因為初始化 repo 是改變系統狀態的決定，且哪些目錄含敏感資訊該由船長確認。
 
 ### 3. 成本模式決定 opus 的用量（我查不到的事）
 
