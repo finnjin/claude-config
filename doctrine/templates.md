@@ -129,6 +129,6 @@
 ## 使用備註
 
 - 升級重派時，在模板最上方加一段「失敗軌跡」：原始目標、每次嘗試的做法、實際輸出/錯誤原文、猜測的卡點。
-- 獨立子任務並行派：同一個訊息裡發多個 Agent 呼叫（拆法已知就平面直接派 N 個；拆法要偵察後才浮現，明文授權該 agent 自拆——見 model-dispatch.md §2）。使用者一次給多件事：先 TaskCreate 全部，再同訊息派出，TaskList 清完才結束 turn（§1）。
+- 獨立子任務並行派：同一個訊息裡發多個 Agent 呼叫（拆法已知就平面直接派 N 個；拆法要偵察後才浮現，明文授權該 agent 自拆——見 model-dispatch.md §2）。使用者一次給多件事：先列全清單，再同訊息派出，清單清完才結束 turn（§1）。
 - 審查 agent 與實作 agent 不能是同一個對話延續（SendMessage 給原 agent 不算 fresh）。
 - 預期 1-2 分鐘內完成、下一步立刻要用結果 → `run_in_background: false` 同步執行；其餘背景並行，等待期間不 sleep 不輪詢（model-dispatch.md §5）。
