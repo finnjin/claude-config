@@ -95,9 +95,9 @@ Read 只有三個合法用途：(a) 使用者指定的檔案或段落；(b) 審�
 - 正例：「查 X 的所有 call site，範圍 `src/Services/`，已知主要入口 `Foo.cs:120`」。
 - 反例：「讀懂整個 repo 然後回答 X」——冷啟動全掃，十幾分鐘起跳，回報還稀釋。
 
-同步 vs 背景（2026-08-08 實測：派工預設背景執行）：
+同步 vs 背景：
 - 預設背景並行；harness 會在 agent 完成時自動喚醒主對話。
-- 預期 1-2 分鐘內完成、下一步立刻要用其結果、又沒有別的事可並行 → `run_in_background: false` 同步拿結果，省一次通知往返。
+- 預期 1-2 分鐘內完成、下一步立刻要用其結果、又沒有別的事可並行 → 當下 schema 若提供同步選項就同步拿結果，省一次通知往返；沒提供就照背景走，不要拿別的參數（如 Bash 的 `run_in_background`）替代。
 
 ## 5. 等待紀律：不 sleep、不輪詢
 
@@ -117,10 +117,12 @@ Read 只有三個合法用途：(a) 使用者指定的檔案或段落；(b) 審�
 
 ## 7. 升降級路徑
 
+`sonnet`/`opus` 何時該升級的訊號以 `judgment.md` §1 為準（含「兩次失敗要本質相同才算」的細判準）；`haiku` 例外，一擊出局見下。本節管路徑與要帶什麼：
+
 - `haiku` 產出錯誤或答非所問 → **錯一次就升級** `sonnet` 重派，不給 haiku 第二次機會。
-- `sonnet`/`opus` 同一子任務**連錯兩次** → 帶完整失敗軌跡升級（原始目標、每次嘗試、實際輸出/錯誤原文、猜測的卡點）。sonnet 升 opus；opus 也卡住就停下問使用者。
+- `sonnet`/`opus` 觸發升級訊號時 → 帶完整失敗軌跡升級（原始目標、每次嘗試、實際輸出/錯誤原文、猜測的卡點）。sonnet 升 opus；opus 也卡住就停下問使用者。
 - **解出模式後降級**：opus 解出的做法要套用多處時，寫成明確步驟降回 `haiku`/`sonnet` 批次執行（可腳本化就照 §6 寫腳本）。
-- **同一件事最多重試兩輪**。第三輪前必須換路（不同方法/不同模型/問使用者），判準見 `judgment.md`。
+- **同一件事最多重試兩輪**。第三輪前必須換路（不同方法/不同模型/問使用者），判準見 `judgment.md` §4。
 
 ## 8. 驗證分級：不是所有變更都要 fresh verifier
 
@@ -151,8 +153,7 @@ Read 只有三個合法用途：(a) 使用者指定的檔案或段落；(b) 審�
 ## 9. 機制快照（2026-08-08 實測；過期照 maintenance.md 更新）
 
 - **Schema 優先**：當下 session 的工具 schema 與本快照矛盾時，一律以 schema 為準行動，不要照舊條文對抗工具（重試不存在的參數、堅持已改變的預設）。「照 schema 行動」所有人適用；「照 maintenance.md 更新本節」只有主對話做——subagent 發現矛盾時寫進回報，不得自行改 doctrine 檔。**新增**機制事實中 schema 不自帶的（工具說明每 session 看得到的不記）一律寫進本節；其他章節出現的工具名與參數是判準的示例，與本節或當下 schema 矛盾時以後者為準，修正時改本節即可、不刪章節內容。工具面可能因位置而異（主對話與 subagent 的清單不同），以「自己當下看得到的 schema」為準。
-- Agent 工具 `model` enum：`haiku`/`sonnet`/`opus`/`fable`（fable 不保證可用，呼叫失敗改 `opus`）；**沒有** effort 參數（effort 只能在 `~/.claude/agents/*.md` frontmatter 設）。
-- 派工**預設背景執行**，完成時 harness 自動喚醒主對話；`run_in_background: false` 改同步。
+- `fable` 模型不保證可用，呼叫失敗改 `opus`。Agent 工具沒有 effort 參數（effort 只能在 `~/.claude/agents/*.md` frontmatter 設）。
 - subagent context 載入完整 CLAUDE.md + doctrine（§0 的依據），多數型別工具清單含 Agent（`Explore` 沒有）——巢狀派工的合法性照 §0 的交付物型態判準。
 - SendMessage 可延續既有 agent 對話；延續不算 fresh（§8）。
 - **doctrine 改動不會即時生效於 subagent**：subagent 注入的 CLAUDE.md/doctrine 是 session 啟動時的快照（2026-08-08 實測：改檔後同 session 派出的 agent 仍引用舊條文）。制度變更下個 session 才對 subagent 生效；當下就要 subagent 遵守新規則，把新條文直接貼進派工 prompt。
