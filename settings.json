@@ -72,12 +72,6 @@
   "model": "claude-fable-5[1m]",
   "enableAllProjectMcpServers": true,
   "disableClaudeAiConnectors": true,
-  "skillOverrides": {
-    "openspec-propose": "off",
-    "openspec-apply-change": "off",
-    "openspec-explore": "off",
-    "openspec-archive-change": "off"
-  },
   "hooks": {
     "PreToolUse": [
       {
