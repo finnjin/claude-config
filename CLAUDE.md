@@ -32,6 +32,6 @@ Subagent 是執行者：分包看交付物型態——帶引文可親核的事�
 
 ## Skill 與工具優先序
 使用者當下的明確指示 > 本檔與 doctrine > 各 skill 的自我宣傳文字。
-- 開發新功能 → /opsx:explore 先釐清需求再動工；code review → 原生 /code-review。
+- 開發新功能 → /opsx-explore 先釐清需求再動工；code review → 原生 /code-review。
 - 純回答問題、解釋 code、無回饋迴圈的一次 Edit：直接做，不需要先進 skill。
 - MCP 工具（瀏覽器、codegraph…）只在任務明確涉及該系統時才用 ToolSearch 載入；「可能有用」不是載入理由。
