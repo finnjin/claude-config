@@ -1,0 +1,19 @@
+{
+  "description": "Codex-native bridge for recursive imports in shared Claude instructions.",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/python3 __HOME__/.claude/codex/harness-sync/import_loader.py",
+            "statusMessage": "Loading shared instruction imports",
+            "additionalContextLimit": 10000,
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

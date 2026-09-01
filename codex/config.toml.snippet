@@ -1,0 +1,16 @@
+model = "gpt-5.6-sol"
+model_reasoning_effort = "medium"
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+project_doc_fallback_filenames = ["CLAUDE.md"]
+
+[features]
+hooks = true
+
+[mcp_servers.codegraph]
+command = "codegraph"
+args = ["serve", "--mcp"]
+
+[tui]
+status_line = ["model-with-reasoning", "current-dir", "reasoning", "project-name", "git-branch", "run-state", "permissions", "approval-mode", "context-remaining", "context-used", "five-hour-limit", "weekly-limit", "context-window-size", "used-tokens", "total-input-tokens", "total-output-tokens", "thread-title", "workspace-headline", "task-progress"]
+status_line_use_colors = true

@@ -1,14 +1,24 @@
 # claude-config 只版控 harness 制度與設定。
-# 白名單式：預設忽略所有東西，逐項放行；客製化 command/skill/agent、
-# memory、runtime 產物一律不進來（另外版控或不版控）。
+# 白名單式：預設忽略所有東西，逐項放行；memory、runtime 產物、
+# 機器綁定狀態、含公司資訊的 skills/agents 一律不進來（另外版控或不版控）。
 *
 
 !.gitignore
 !CLAUDE.md
+!README.md
+!bootstrap.sh
 !settings.json
 
 !doctrine/
 !doctrine/**
 doctrine/*.bak-*
 
+# Codex 橋接：只收程式碼與樣板，state.json/backups/logs 留在 ~/.codex。
+!codex/
+!codex/**
+
+!statusline.sh
+!subagent-statusline.sh
+
 .DS_Store
+__pycache__/
