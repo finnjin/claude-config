@@ -14,6 +14,20 @@
           }
         ]
       }
+    ],
+    "SubagentStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/python3 __HOME__/.claude/codex/harness-sync/import_loader.py",
+            "statusMessage": "Loading shared instruction imports for subagent",
+            "additionalContextLimit": 10000,
+            "timeout": 10
+          }
+        ]
+      }
     ]
   }
 }

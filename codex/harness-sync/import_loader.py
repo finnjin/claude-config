@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Expand Claude-style @file imports for Codex SessionStart.
+"""Expand Claude-style @file imports for Codex startup hooks.
 
 The loader understands only import structure. It does not inspect or classify
 the instructions it transports. Entry documents themselves are loaded by
@@ -209,8 +209,11 @@ def main() -> int:
         blocks.extend(expander.expand_imports_only(entry))
     output: dict[str, object] = {}
     if blocks:
+        hook_event_name = hook_input.get("hook_event_name") or "SessionStart"
+        if hook_event_name not in {"SessionStart", "SubagentStart"}:
+            hook_event_name = "SessionStart"
         output["hookSpecificOutput"] = {
-            "hookEventName": "SessionStart",
+            "hookEventName": hook_event_name,
             "additionalContext": "\n\n".join(blocks),
         }
     if expander.warnings:
